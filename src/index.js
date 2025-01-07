@@ -21,3 +21,11 @@ document.getElementById("loadButton").addEventListener("click", () => {
 });
 
 console.log("Hello, Webpack!");
+
+import("./moduleA").then((module) => {
+  module.default();
+});
+
+import("./moduleB").then((module) => {
+  module.default();
+});
