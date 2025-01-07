@@ -1,0 +1,10 @@
+# IDE settings
+.project
+.idea
+.vscore
+
+# Node
+node_modules
+
+# Generated files
+dist/
