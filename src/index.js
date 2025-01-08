@@ -1,31 +1,10 @@
-import "./style.css";
+import React from "react";
+import { createRoot } from "react-dom/client";
 
-console.log("[当前环境]: ", process.env.NODE_ENV);
+const App = () => {
+  return <h1>Hello, React with Webpack!</h1>;
+};
 
-const app = document.createElement("div");
-app.innerHTML =
-  "<h1>Hello, Webpack Page!</h1><button id='loadButton'>加载模块</button>";
+const root = createRoot(document.getElementById("root"));
 
-document.body.appendChild(app);
-
-document.getElementById("loadButton").addEventListener("click", () => {
-  import("./module.js") // 动态导入
-    .then((module) => {
-      // 使用导入的模块
-      const result = module.default();
-      alert(result + process.env.NODE_ENV);
-    })
-    .catch((err) => {
-      console.error("Error loading module:", err);
-    });
-});
-
-console.log("Hello, Webpack!");
-
-import("./moduleA").then((module) => {
-  module.default();
-});
-
-import("./moduleB").then((module) => {
-  module.default();
-});
+root.render(<App />);
