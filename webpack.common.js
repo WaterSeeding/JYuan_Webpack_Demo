@@ -17,8 +17,8 @@ module.exports = (env, argv) => {
     mode: isProduction ? "production" : "development",
     // 打包的入口文件
     entry: {
-      index: "./src/index.js",
-      a: "./src/a.js",
+      index: "./src/index.jsx",
+      a: "./src/a.ts",
       b: "./src/b.js",
       c: "./src/c.js",
     },
@@ -50,10 +50,20 @@ module.exports = (env, argv) => {
             loader: "babel-loader",
           },
         },
+        {
+          test: /\.ts?$/,
+          use: 'ts-loader',
+          exclude: /node_modules/
+        },
+        // {
+        //   test: /\.tsx?$/,
+        //   use: "ts-loader",
+        //   exclude: /node_modules/
+        // }
       ],
     },
     resolve: {
-      extensions: [".js", ".jsx"],
+      extensions: [".js", ".jsx", ".ts"],
     },
     // 配置插件，用于执行各种任务，如：打包优化、资源管理。
     plugins: [

@@ -6,7 +6,7 @@ const array = ["Hello"];
 const arrays = _.concat(array, [", "], ["React with Webpack"], ["!"]);
 const result = _.join(arrays, "");
 
-const App = () => {
+const App= () => {
   return <h1>{result}</h1>;
 };
 
