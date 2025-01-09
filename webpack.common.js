@@ -32,10 +32,10 @@ module.exports = (env, argv) => {
     // 配置loader，用于处理不同类型的文件
     module: {
       rules: [
-        // {
-        //   test: /\.css$/, // 匹配CSS文件
-        //   use: ["style-loader", "css-loader"], // 使用的CSS加载器
-        // },
+        {
+          test: /\.css$/, // 匹配CSS文件
+          use: ["style-loader", "css-loader"], // 使用的CSS加载器
+        },
         {
           test: /\.js$/,
           exclude: /node_modules/,
