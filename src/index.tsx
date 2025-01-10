@@ -10,6 +10,6 @@ const App= () => {
   return <h1>{result}</h1>;
 };
 
-const root = createRoot(document.getElementById("root"));
+const root = createRoot(document.getElementById("root") as HTMLDivElement);
 
 root.render(<App />);

@@ -3,6 +3,7 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const MyPlugin = require("./webpack_plugin.js");
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
@@ -17,7 +18,7 @@ module.exports = (env, argv) => {
     mode: isProduction ? "production" : "development",
     // 打包的入口文件
     entry: {
-      index: "./src/index.jsx",
+      index: "./src/index.tsx",
       a: "./src/a.ts",
       b: "./src/b.js",
       c: "./src/c.js",
@@ -39,39 +40,49 @@ module.exports = (env, argv) => {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          use: {
-            loader: "babel-loader",
-          },
+          use: [
+            {
+              loader: "babel-loader",
+            },
+          ],
         },
         {
-          test: /\.jsx?$/,
+          test: /\.jsx$/,
           exclude: /node_modules/,
-          use: {
-            loader: "babel-loader",
-          },
+          use: [
+            {
+              loader: "babel-loader",
+            },
+          ],
         },
         {
-          test: /\.ts?$/,
-          use: 'ts-loader',
-          exclude: /node_modules/
+          test: /\.ts$/,
+          use: ["ts-loader"],
+          exclude: /node_modules/,
         },
-        // {
-        //   test: /\.tsx?$/,
-        //   use: "ts-loader",
-        //   exclude: /node_modules/
-        // }
+        {
+          test: /\.tsx$/,
+          use: [
+            "ts-loader",
+            {
+              loader: path.resolve(__dirname, "webpack_loader.js"),
+            },
+          ],
+          exclude: /node_modules/,
+        },
       ],
     },
     resolve: {
-      extensions: [".js", ".jsx", ".ts"],
+      extensions: [".js", ".jsx", ".ts", ".tsx"],
     },
     // 配置插件，用于执行各种任务，如：打包优化、资源管理。
     plugins: [
       new CleanWebpackPlugin(), // 清除dist文件夹内容
+      new MyPlugin('React', 'ReactJS'),
       new HtmlWebpackPlugin({
         template: "./src/index.html",
         filename: "index.html",
-        chunks: ["index"],
+        chunks: ["index", "a", "b", "c"],
         inject: "body", // 将脚本注入到 body 中
         scriptLoading: "blocking", // 确保脚本在解析之前加载
       }),
